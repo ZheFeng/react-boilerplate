@@ -1,10 +1,7 @@
 = Project specific =============================================================
 build
+bower_components
 coverage
-
-#bower #
-###################
-libs/bower
 
 
 

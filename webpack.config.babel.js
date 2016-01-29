@@ -1,5 +1,6 @@
-module.exports = {
-    entry: "./index.js",
+
+const config = {
+    entry: "./apps/index.js",
     output: {
         path: __dirname,
         filename: "build/bundle.js"
@@ -11,3 +12,5 @@ module.exports = {
         ]
     }
 };
+
+export default config;

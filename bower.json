@@ -1,0 +1,11 @@
+{
+  "name": "react-boilerplate",
+  "version": "1.0.0",
+  "description": "react-boilerplate",
+  "ignore": [],
+  "dependencies": {
+    "jquery": "~1.11.3",
+    "fontawesome": "~4.3.0",
+  },
+  "devDependencies": {}
+}
