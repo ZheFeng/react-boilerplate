@@ -1,5 +1,5 @@
 = Project specific =============================================================
-assets/compiled
+assets/webpack-build
 bower_components
 coverage
 

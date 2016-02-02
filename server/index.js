@@ -14,7 +14,7 @@ const assetsPath = path.join.apply(
   [__dirname, '..'].concat(config.path.assets)
 );
 
-app.use(favicon(path.join(assetsPath, 'nodejs.png')));
+app.use(favicon(path.join(assetsPath, 'images', 'nodejs.png')));
 app.use(express.static(assetsPath));
 
 router.get('/', (req, res) => {
