@@ -1,5 +1,5 @@
 = Project specific =============================================================
-build
+assets/compiled
 bower_components
 coverage
 

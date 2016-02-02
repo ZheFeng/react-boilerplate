@@ -1,15 +1,21 @@
 import express from 'express';
 import htmlRender from './htmlRender';
 import path from 'path';
-// import favicon from 'serve-favicon';
+import { config } from '../package';
+import favicon from 'serve-favicon';
 
 
 const app = express();
 const router = express.Router();
 
 // uncomment after placing your favicon in /public
-// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(express.static(path.join(__dirname, '../build')));
+const assetsPath = path.join.apply(
+  path,
+  [__dirname, '..'].concat(config.path.assets)
+);
+
+app.use(favicon(path.join(assetsPath, 'nodejs.png')));
+app.use(express.static(assetsPath));
 
 router.get('/', (req, res) => {
   res.send(htmlRender());
