@@ -22,6 +22,17 @@ function normalizePort(val) {
   return false;
 }
 
+
+const port = normalizePort(process.env.PORT || '3000');
+Server.set('port', port);
+
+
+/**
+ * Create HTTP server.
+ */
+const server = http.createServer(Server);
+
+
 /**
  * Event listener for HTTP server "error" event.
  */
@@ -35,11 +46,11 @@ function onError(error) {
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
+      console.error(`${bind} requires elevated privileges`);
       process.exit(1);
       break;
     case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
+      console.error(`${bind} is already in use`);
       process.exit(1);
       break;
     default:
@@ -58,20 +69,10 @@ function onListening() {
 }
 
 
-const port = normalizePort(process.env.PORT || '3000');
-Server.set('port', port);
-
-/**
- * Create HTTP server.
- */
-
-const server = http.createServer(Server);
-
 /**
  * Listen on provided port, on all network interfaces.
  */
-
-console.log('start server')
+console.log('start server');
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);

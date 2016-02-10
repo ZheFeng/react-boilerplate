@@ -6,12 +6,13 @@
   "scripts": {
     "postinstall": "npm prune",
     "webpack": ".\\node_modules\\.bin\\webpack",
-    "webpack-dev-server": ".\\node_modules\\.bin\\webpack-dev-server  --content-base assets",
+    "webpack-dev-server": ".\\node_modules\\.bin\\webpack-dev-server --inline --hot --content-base assets",
     "start": "node bin\\start.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Zhe Feng",
   "devDependencies": {
+    "react-hot-loader": "^1.3.0",
     "webpack": "^1.12.12",
     "webpack-dev-server": "^1.14.1",
     "webpack-stats-plugin": "^0.1.1"
