@@ -6,7 +6,7 @@ import { StatsWriterPlugin } from 'webpack-stats-plugin';
 const { NODE_ENV } = process.env;
 const isProduction = NODE_ENV === 'production';
 const isDevelopment = !NODE_ENV || NODE_ENV === 'development';
-const filename = isDevelopment ? '[name].dev.js' : '[chunkhash].js';
+const filename = isProduction ? '[chunkhash].js' : '[name].js';
 
 const entry = {
   admin: './client/admin.js',
@@ -38,17 +38,16 @@ const plugins = [
 ];
 
 
-const webpackSettings = {
+const webpackConfig = {
   entry,
   output,
   module: {
     loaders: [
-      { test: /\.css$/, loader: 'style!css' },
+      { test: /\.css$/, loaders: ['style!css'] },
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loaders: isDevelopment ?
-          ['react-hot', 'babel-loader'] : ['babel-loader'],
+        loaders: ['babel-loader'],
       },
     ],
   },
@@ -56,15 +55,11 @@ const webpackSettings = {
 };
 
 if (isProduction) {
-  webpackSettings.plugins.push(new webpack.optimize.DedupePlugin());
-  webpackSettings.plugins.push(new webpack.optimize.UglifyJsPlugin({
+  webpackConfig.plugins.push(new webpack.optimize.DedupePlugin());
+  webpackConfig.plugins.push(new webpack.optimize.UglifyJsPlugin({
     sourceMap: false,
     compress: { warnings: false },
   }));
 }
 
-if (isDevelopment) {
-  webpackSettings.devtool = 'eval';
-}
-
-export default webpackSettings;
+export default webpackConfig;

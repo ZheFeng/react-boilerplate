@@ -1,19 +1,28 @@
 import express from 'express';
 import path from 'path';
+import http from 'http';
+import winston from 'winston';
 import favicon from 'serve-favicon';
-import { config } from '../package';
-import htmlRender from './htmlRender';
+import { config, name } from '../package';
 
 
 const app = express();
 const router = express.Router();
 const assetsPath = path.join(...[__dirname, '..'].concat(config.path.assets));
 
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 app.use(favicon(path.join(assetsPath, 'images', 'nodejs.png')));
 app.use(express.static(assetsPath));
 
 router.get('/', (req, res) => {
-  res.send(htmlRender());
+  const scripts = [
+    'base',
+    'admin_lib',
+    'share',
+    'admin',
+  ];
+  res.render('index', { title: name, scripts });
 });
 app.use(router);
 
@@ -50,4 +59,19 @@ app.use((err, req, res) => {
 });
 
 
-export default app;
+export function startServer(PORT, onError, onListening) {
+  app.set('port', PORT);
+  const server = http.createServer(app);
+
+  winston.info(`[${process.env.NODE_ENV}] Starting server...`);
+  server.listen(PORT);
+  server.on('error', onError);
+  if (process.env.NODE_ENV === 'development') {
+    const startDevServer = require('./webpackDevServer').startServer;
+    server.on('listening', () => {
+      startDevServer(PORT, 8080, onListening);
+    });
+  } else {
+    server.on('listening', onListening);
+  }
+}

@@ -1,6 +1,6 @@
 require('babel-core/register');
-const http = require('http');
-const Server = require('../server').default;
+const winston = require('winston');
+const startServer = require('../server').startServer;
 
 /**
  * Normalize a port into a number, string, or false.
@@ -24,19 +24,11 @@ function normalizePort(val) {
 
 
 const port = normalizePort(process.env.PORT || '3000');
-Server.set('port', port);
-
-
-/**
- * Create HTTP server.
- */
-const server = http.createServer(Server);
 
 
 /**
  * Event listener for HTTP server "error" event.
  */
-
 function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
@@ -46,11 +38,11 @@ function onError(error) {
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
-      console.error(`${bind} requires elevated privileges`);
+      winston.error(`${bind} requires elevated privileges`);
       process.exit(1);
       break;
     case 'EADDRINUSE':
-      console.error(`${bind} is already in use`);
+      winston.error(`${bind} is already in use`);
       process.exit(1);
       break;
     default:
@@ -63,16 +55,7 @@ function onError(error) {
  */
 
 function onListening() {
-  const addr = server.address();
-  const bind = typeof addr === 'string' ? `pipe ${addr}` : `port ${addr.port}`;
-  console.log(`Listening on ${bind}`);
+  winston.info(`Sserver is now running on http://localhost:${port}`);
 }
 
-
-/**
- * Listen on provided port, on all network interfaces.
- */
-console.log('start server');
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+startServer(port, onError, onListening);
