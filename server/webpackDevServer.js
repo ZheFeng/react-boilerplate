@@ -6,7 +6,9 @@ import WebpackDevServer from 'webpack-dev-server';
 
 function setDevWebpackConfig(originConfig, DEV_PORT) {
   const config = Object.assign({}, originConfig);
-  config.devtool = 'eval';
+
+  config.devtool = '#cheap-source-map';
+
   Object.keys(config.entry).forEach(key => {
     const val = config.entry[key];
     if (typeof val === 'string') {
@@ -43,6 +45,6 @@ export function startServer(PORT, DEV_PORT, onListening) {
   winston.info('Starting development server...');
   app.listen(DEV_PORT, () => {
     winston.info(`Dev server is now running on http://localhost:${DEV_PORT}`);
-    onListening();
+    onListening(PORT);
   });
 }

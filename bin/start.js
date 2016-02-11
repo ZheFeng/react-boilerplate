@@ -54,8 +54,8 @@ function onError(error) {
  * Event listener for HTTP server "listening" event.
  */
 
-function onListening() {
-  winston.info(`Sserver is now running on http://localhost:${port}`);
+function onListening(p) {
+  winston.info(`Server is now running on http://localhost:${p}`);
 }
 
 startServer(port, onError, onListening);
