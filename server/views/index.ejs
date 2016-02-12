@@ -6,7 +6,9 @@
   </head>
   <body>
     <h3><%= title %></h3>
-    <div id="app"></div>
+    <div id="app">
+      <%- appHtml %>
+    </div>
     <% scripts.forEach(function(script){ %>
       <script src="<%= script %>.js"></script>
     <% }); %>

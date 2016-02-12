@@ -5,6 +5,11 @@ import winston from 'winston';
 import favicon from 'serve-favicon';
 import { config, name } from '../package';
 
+import React from 'react';
+import { renderToString } from 'react-dom/server';
+import { match, RouterContext } from 'react-router';
+import routes from '../libs/Admin/routes';
+
 
 const app = express();
 const router = express.Router();
@@ -15,14 +20,17 @@ app.set('view engine', 'ejs');
 app.use(favicon(path.join(assetsPath, 'images', 'nodejs.png')));
 app.use(express.static(assetsPath));
 
-router.get('/', (req, res) => {
+router.get('*', (req, res) => {
   const scripts = [
     'base',
     'admin_lib',
     'share',
     'admin',
   ];
-  res.render('index', { title: name, scripts });
+  match({ routes, location: req.url }, (err, redirect, props) => {
+    const appHtml = renderToString(<RouterContext {...props}/>);
+    res.render('index', { title: name, scripts, appHtml });
+  });
 });
 app.use(router);
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import moduleA from '../../moduleA';
+import moduleA from '../../ModuleA';
 
 class ModuleA extends Component {
   static displayName = 'ModuleA';
