@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 class ModuleA extends Component {
   static displayName = 'ModuleA';
   render() {
-    require.ensure(['../../ModuleA'], () => {
-      const moduleA = require('../../ModuleA');
+    require.ensure([], () => {
+      const moduleA = require('../../ModuleA').default;
       moduleA();
     });
     return (

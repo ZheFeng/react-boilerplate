@@ -6,6 +6,8 @@ import favicon from 'serve-favicon';
 import moment from 'moment';
 import { config, name } from '../package';
 
+import getChunckPath from './getChunckPath';
+
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
@@ -22,7 +24,8 @@ app.set('view engine', 'ejs');
 
 if (app.get('env') === 'development') {
   app.use((req, res, next) => {
-    winston.info(`[${moment().format('YYYY-MM-DD hh:mm:ss')}] ${req.method} ${req.originalUrl}`);
+    const time = moment().format('YYYY-MM-DD hh:mm:ss');
+    winston.info(`[${time}] ${req.method} ${req.originalUrl}`);
     next();
   });
 }
@@ -36,7 +39,7 @@ router.get('*', (req, res) => {
     // 'admin_lib',
     // 'share',
     'admin',
-  ];
+  ].map(getChunckPath);
   match({ routes, location: req.url }, (err, redirect, props) => {
     const appHtml = renderToString(<RouterContext {...props}/>);
     res.render('index', { title: name, scripts, appHtml });

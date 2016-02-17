@@ -16,6 +16,7 @@ const entry = {
 };
 
 const output = {
+  publicPath: config.path.publicPath,
   path: path.join.apply(path, [__dirname].concat(config.path['webpack-build'])),
   filename,
 };

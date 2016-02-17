@@ -18,7 +18,8 @@
       "webpack-build": [
         "assets",
         "webpack-build"
-      ]
+      ],
+      "publicPath" : "/webpack-build/"
     }
   },
   "devDependencies": {
