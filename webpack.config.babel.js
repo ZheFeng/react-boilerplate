@@ -11,8 +11,8 @@ const filename = isProduction ? '[chunkhash].js' : '[name].js';
 const entry = {
   admin: './client/admin.js',
   consumer: './client/consumer.js',
-  admin_lib: ['immutable'],
-  base: ['react'],
+  // admin_lib: ['immutable'],
+  // base: ['react'],
 };
 
 const output = {
@@ -21,11 +21,11 @@ const output = {
 };
 
 const plugins = [
-  new webpack.optimize.CommonsChunkPlugin({
-    names: ['share', 'admin_lib', 'base'],
-    children: false,
-    filename,
-  }),
+  // new webpack.optimize.CommonsChunkPlugin({
+  //   names: ['share', 'admin_lib', 'base'],
+  //   children: false,
+  //   filename,
+  // }),
   new webpack.DefinePlugin({
     'process.env': {
       // This has effect on the react lib size

@@ -2,12 +2,11 @@
   "name": "react-boilerplate",
   "version": "1.0.0",
   "description": "react-boilerplate",
-  "main": "index.js",
+  "main": "bin/start.js",
   "scripts": {
     "postinstall": "npm prune",
-    "webpack": ".\\node_modules\\.bin\\webpack",
-    "webpack-dev-server": ".\\node_modules\\.bin\\webpack-dev-server --inline --hot --content-base assets",
-    "start": "node bin\\start.js",
+    "webpack": "webpack",
+    "start": "node .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Zhe Feng",

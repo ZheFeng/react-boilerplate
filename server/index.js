@@ -3,6 +3,7 @@ import path from 'path';
 import http from 'http';
 import winston from 'winston';
 import favicon from 'serve-favicon';
+import moment from 'moment';
 import { config, name } from '../package';
 
 import React from 'react';
@@ -17,14 +18,23 @@ const assetsPath = path.join(...[__dirname, '..'].concat(config.path.assets));
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+
+if (app.get('env') === 'development') {
+  app.use((req, res, next) => {
+    winston.info(`[${moment().format('YYYY-MM-DD hh:mm:ss')}] ${req.method} ${req.originalUrl}`);
+    next();
+  });
+}
+
 app.use(favicon(path.join(assetsPath, 'images', 'nodejs.png')));
 app.use(express.static(assetsPath));
 
 router.get('*', (req, res) => {
   const scripts = [
-    'base',
-    'admin_lib',
-    'share',
+    // 'base',
+    // 'admin_lib',
+    // 'share',
     'admin',
   ];
   match({ routes, location: req.url }, (err, redirect, props) => {
