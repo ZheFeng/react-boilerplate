@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
+import moduleA from '../../ModuleA';
 
 class ModuleA extends Component {
   static displayName = 'ModuleA';
   render() {
-    require.ensure([], () => {
-      const moduleA = require('../../ModuleA').default;
-      moduleA();
-    });
+    moduleA();
     return (
       <div>ModuleA</div>
     );

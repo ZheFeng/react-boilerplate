@@ -1,3 +1,3 @@
-import routes from './routes';
+import App from './App';
 
-export default routes;
+export default App;

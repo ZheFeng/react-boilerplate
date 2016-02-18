@@ -8,7 +8,7 @@ const buildPath = path.join(
 export default function getChunckPath(chunckName) {
   if (process.env.NODE_ENV === 'production') {
     const stats = require(`${buildPath}/stats`);
-    return `${config.path.publicPath}${stats.assetsByChunkName[chunckName]}`;
+    return `${config.publicPath}${stats.assetsByChunkName[chunckName]}`;
   }
   return `${chunckName}.js`;
 }

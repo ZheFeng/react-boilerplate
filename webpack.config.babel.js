@@ -12,21 +12,20 @@ const entry = {
   admin: './client/admin.js',
   consumer: './client/consumer.js',
   // admin_lib: ['immutable'],
-  // base: ['react'],
+  base: ['react', 'react-router', 'react-dom'],
 };
 
 const output = {
-  publicPath: config.path.publicPath,
   path: path.join.apply(path, [__dirname].concat(config.path['webpack-build'])),
   filename,
 };
 
 const plugins = [
-  // new webpack.optimize.CommonsChunkPlugin({
-  //   names: ['share', 'admin_lib', 'base'],
-  //   children: false,
-  //   filename,
-  // }),
+  new webpack.optimize.CommonsChunkPlugin({
+    names: ['base'],
+    children: false,
+    filename,
+  }),
   new webpack.DefinePlugin({
     'process.env': {
       // This has effect on the react lib size
@@ -56,6 +55,7 @@ const webpackConfig = {
 };
 
 if (isProduction) {
+  webpackConfig.output.publicPath = config.publicPath;
   webpackConfig.plugins.push(new webpack.optimize.DedupePlugin());
   webpackConfig.plugins.push(new webpack.optimize.UglifyJsPlugin({
     sourceMap: false,

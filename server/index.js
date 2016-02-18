@@ -11,7 +11,7 @@ import getChunckPath from './getChunckPath';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
-import routes from '../libs/Admin/routes';
+import routes from '../libs/Admin/routes/index.server';
 
 
 const app = express();
@@ -35,11 +35,12 @@ app.use(express.static(assetsPath));
 
 router.get('*', (req, res) => {
   const scripts = [
-    // 'base',
+    'base',
     // 'admin_lib',
     // 'share',
     'admin',
   ].map(getChunckPath);
+  // res.render('index', { title: name, scripts, appHtml: '' });
   match({ routes, location: req.url }, (err, redirect, props) => {
     const appHtml = renderToString(<RouterContext {...props}/>);
     res.render('index', { title: name, scripts, appHtml });

@@ -1,8 +1,8 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 
-class Admin extends Component {
-  static displayName = 'Admin';
+class Root extends Component {
+  static displayName = 'Root';
   static propTypes = {
     children: PropTypes.node,
   };
@@ -23,4 +23,4 @@ class Admin extends Component {
 }
 
 
-export default Admin;
+export default Root;
