@@ -1,12 +1,24 @@
 import React, { Component } from 'react';
-import moduleA from '../../ModuleA';
 
 class ModuleA extends Component {
   static displayName = 'ModuleA';
+  state = {
+    text: 'loading...',
+  };
+  componentDidMount() {
+    require.ensure([], (require) => {
+      const $ = require('jquery');
+      const moduleA = require('../../ModuleA').default;
+      moduleA();
+      const title = $('title').text();
+      this.setState({
+        text: title,
+      });
+    });
+  }
   render() {
-    moduleA();
     return (
-      <div>ModuleA</div>
+      <div>{this.state.text}</div>
     );
   }
 }
