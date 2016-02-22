@@ -1,4 +1,14 @@
+import React from 'react';
 import { render } from 'react-dom';
-import Admin from '../libs/Admin';
+import { match, Router, browserHistory } from 'react-router';
+import { routes } from '../libs/Admin';
 
-render(Admin, document.getElementById('app'));
+const { pathname, search, hash } = window.location;
+const location = `${pathname}${search}${hash}`;
+
+match({ routes, location }, () => {
+  render(
+    <Router routes={routes} history={browserHistory} />,
+    document.getElementById('app')
+  );
+});

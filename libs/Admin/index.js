@@ -1,3 +1,3 @@
-import App from './App';
+import _routes from './routes';
 
-export default App;
+export const routes = _routes;
