@@ -22,8 +22,12 @@ class Moment extends Component {
     return (
       <div>
         <div>{this.state.time}</div>
+        <div>{this.calculator(134, 5672)}</div>
       </div>
     );
+  }
+  calculator(a, b) {
+    return a + b;
   }
 }
 

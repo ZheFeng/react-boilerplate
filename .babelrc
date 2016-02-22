@@ -5,7 +5,11 @@
     "react"
   ],
   "plugins": [
-    "transform-export-extensions"
+    "transform-export-extensions",
+    ["transform-runtime", {
+      "polyfill": false,
+      "regenerator": true
+    }]
   ],
   "env": {
     "production": {
