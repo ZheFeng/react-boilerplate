@@ -15,6 +15,7 @@ const entry = {
   base: ['react', 'react-router', 'react-dom'],
 };
 
+
 const output = {
   path: path.join.apply(path, [__dirname].concat(config.path['webpack-build'])),
   filename,
