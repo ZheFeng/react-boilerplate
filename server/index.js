@@ -4,18 +4,11 @@ import http from 'http';
 import winston from 'winston';
 import favicon from 'serve-favicon';
 import moment from 'moment';
-import { config, name } from '../package';
-
-import getChunckPath from './getChunckPath';
-
-import React from 'react';
-import { renderToString } from 'react-dom/server';
-import { match, RouterContext } from 'react-router';
-import routes from '../libs/Admin/routes/index.server';
+import { config } from '../package';
+import router from './router';
 
 
 const app = express();
-const router = express.Router();
 const assetsPath = path.join(...[__dirname, '..'].concat(config.path.assets));
 
 app.set('views', path.join(__dirname, 'views'));
@@ -33,19 +26,6 @@ if (app.get('env') === 'development') {
 app.use(favicon(path.join(assetsPath, 'images', 'nodejs.png')));
 app.use(express.static(assetsPath));
 
-router.get('*', (req, res) => {
-  const scripts = [
-    'base',
-    // 'admin_lib',
-    // 'share',
-    'admin',
-  ].map(getChunckPath);
-  // res.render('index', { title: name, scripts, appHtml: '' });
-  match({ routes, location: req.url }, (err, redirect, props) => {
-    const appHtml = renderToString(<RouterContext {...props}/>);
-    res.render('index', { title: name, scripts, appHtml });
-  });
-});
 app.use(router);
 
 
